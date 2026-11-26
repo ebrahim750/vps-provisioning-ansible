@@ -1,0 +1,44 @@
+---
+- name: Provision and harden a cloud VPS
+  hosts: vps
+  become: true
+
+  pre_tasks:
+    - name: Verify the target is a supported distribution
+      ansible.builtin.assert:
+        that:
+          - ansible_facts['distribution'] == 'Ubuntu'
+          - ansible_facts['distribution_major_version'] in ['22', '24']
+        fail_msg: >-
+          This playbook targets Ubuntu 22.04 or 24.04, found
+          {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }}.
+        quiet: true
+      tags: [always]
+
+    - name: Wait for cloud-init to finish
+      ansible.builtin.wait_for:
+        path: /var/lib/cloud/instance/boot-finished
+        timeout: 300
+      tags: [always]
+
+  roles:
+    - role: common
+      tags: [common]
+    - role: hardening
+      tags: [hardening]
+    - role: firewall
+      tags: [firewall]
+    - role: docker
+      tags: [docker]
+    - role: certbot
+      tags: [certbot]
+
+  post_tasks:
+    - name: Report the hardened state
+      ansible.builtin.debug:
+        msg:
+          - "SSH port:       {{ ssh_port }}"
+          - "Password auth:  {{ 'disabled' if disable_password_auth else 'enabled' }}"
+          - "Deploy user:    {{ deploy_user }}"
+          - "Open TCP ports: {{ ([ssh_port] + allowed_tcp_ports) | join(', ') }}"
+      tags: [always]

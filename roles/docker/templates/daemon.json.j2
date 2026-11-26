@@ -1,0 +1,17 @@
+{
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "{{ docker_log_max_size }}",
+    "max-file": "{{ docker_log_max_file }}"
+  },
+  "live-restore": {{ docker_live_restore | lower }}
+{%- if docker_tcp_bind | default('') | length > 0 %},
+  "hosts": ["unix:///var/run/docker.sock", "tcp://{{ docker_tcp_bind }}:2376"]
+{%- endif %},
+  "no-new-privileges": true,
+  "icc": true,
+  "default-address-pools": [
+    { "base": "172.30.0.0/16", "size": 24 },
+    { "base": "172.31.0.0/16", "size": 24 }
+  ]
+}

@@ -1,0 +1,6 @@
+---
+certbot_enabled: false
+certbot_email: ops@example.com
+certbot_domains: []
+certbot_staging: false
+certbot_renew_hook: ""

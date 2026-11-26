@@ -1,0 +1,3 @@
+---
+ufw_log_level: low
+ufw_rate_limit_ssh: true

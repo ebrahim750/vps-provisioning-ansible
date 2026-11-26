@@ -1,0 +1,47 @@
+---
+# --- identity -----------------------------------------------------------------
+timezone: Africa/Nairobi
+deploy_user: deploy
+
+# Public keys for the deploy user. Replace before running against a real host.
+deploy_ssh_keys:
+  - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIExampleKeyReplaceMeExampleKeyReplaceMe deploy@example"
+
+# --- access -------------------------------------------------------------------
+# Change this before the first run on a real host; the firewall opens it and
+# sshd is configured to listen on it.
+ssh_port: 22
+disable_root_login: true
+disable_password_auth: true
+
+# Ports the firewall allows in addition to ssh_port.
+allowed_tcp_ports:
+  - 80
+  - 443
+
+# Hosts allowed to reach the Docker API over TCP. Keep empty: the socket is the
+# only intended interface.
+docker_tcp_bind: ""
+
+# --- firewall behaviour -------------------------------------------------------
+ufw_log_level: low
+ufw_rate_limit_ssh: true
+
+# --- docker -------------------------------------------------------------------
+docker_compose_version: "v2.40.3"
+docker_log_max_size: "50m"
+docker_log_max_file: "5"
+
+# --- certbot ------------------------------------------------------------------
+# Leave enabled: false until DNS for certbot_domains points at the host.
+certbot_enabled: false
+certbot_email: "ops@example.com"
+certbot_domains: []
+certbot_staging: false
+
+# --- unattended upgrades ------------------------------------------------------
+unattended_upgrade_reboot: false
+unattended_upgrade_blacklist:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io

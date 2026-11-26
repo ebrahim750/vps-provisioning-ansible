@@ -1,0 +1,35 @@
+---
+- name: Install ufw
+  ansible.builtin.apt:
+    name: ufw
+    state: present
+
+- name: Deny all inbound traffic by default
+  community.general.ufw:
+    direction: incoming
+    policy: deny
+
+- name: Allow all outbound traffic by default
+  community.general.ufw:
+    direction: outgoing
+    policy: allow
+
+- name: Allow SSH, rate limited to slow down credential stuffing
+  community.general.ufw:
+    rule: "{{ 'limit' if ufw_rate_limit_ssh else 'allow' }}"
+    port: "{{ ssh_port }}"
+    proto: tcp
+    comment: SSH
+
+- name: Allow application ports
+  community.general.ufw:
+    rule: allow
+    port: "{{ item }}"
+    proto: tcp
+    comment: "app-{{ item }}"
+  loop: "{{ allowed_tcp_ports }}"
+
+- name: Enable the firewall
+  community.general.ufw:
+    state: enabled
+    logging: "{{ ufw_log_level }}"

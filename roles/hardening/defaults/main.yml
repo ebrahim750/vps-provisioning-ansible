@@ -1,0 +1,27 @@
+---
+deploy_user: deploy
+deploy_user_shell: /bin/bash
+deploy_user_sudo_nopasswd: true
+
+fail2ban_maxretry: 5
+fail2ban_bantime: 1h
+fail2ban_findtime: 10m
+
+hardening_sysctl:
+  # Kernel information leaks
+  kernel.dmesg_restrict: 1
+  kernel.kptr_restrict: 2
+  kernel.yama.ptrace_scope: 1
+  # Network stack
+  net.ipv4.conf.all.rp_filter: 1
+  net.ipv4.conf.default.rp_filter: 1
+  net.ipv4.conf.all.accept_redirects: 0
+  net.ipv4.conf.default.accept_redirects: 0
+  net.ipv4.conf.all.send_redirects: 0
+  net.ipv4.conf.all.accept_source_route: 0
+  net.ipv4.conf.all.log_martians: 1
+  net.ipv4.tcp_syncookies: 1
+  net.ipv6.conf.all.accept_redirects: 0
+  net.ipv6.conf.all.accept_source_route: 0
+  # Keep forwarding available: Docker needs it.
+  net.ipv4.ip_forward: 0

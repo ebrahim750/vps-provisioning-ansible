@@ -1,0 +1,19 @@
+---
+common_packages:
+  - ca-certificates
+  - curl
+  - gnupg
+  - unzip
+  - git
+  - htop
+  - vim
+  - tmux
+  - rsync
+  - jq
+  - chrony
+  - unattended-upgrades
+  - software-properties-common
+  - python3-pip
+  - ufw
+
+common_apt_cache_valid_time: 3600

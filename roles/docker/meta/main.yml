@@ -1,0 +1,12 @@
+---
+galaxy_info:
+  role_name: docker
+  author: Ebrahim Abdulrahim
+  description: Docker Engine from the official apt repository, with a hardened daemon config.
+  license: MIT
+  min_ansible_version: "2.16"
+  platforms:
+    - name: Ubuntu
+      versions: [jammy, noble]
+dependencies:
+  - role: common

@@ -1,0 +1,8 @@
+---
+# Collections used by this playbook. Pinned so CI installs exactly what the
+# playbook was validated against.
+collections:
+  - name: ansible.posix
+    version: ">=1.5.0,<2.0.0"
+  - name: community.general
+    version: ">=9.0.0,<12.0.0"

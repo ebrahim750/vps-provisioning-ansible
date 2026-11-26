@@ -1,0 +1,12 @@
+---
+galaxy_info:
+  role_name: firewall
+  author: Ebrahim Abdulrahim
+  description: UFW baseline with rate-limited SSH.
+  license: MIT
+  min_ansible_version: "2.16"
+  platforms:
+    - name: Ubuntu
+      versions: [jammy, noble]
+dependencies:
+  - role: common

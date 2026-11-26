@@ -1,0 +1,6 @@
+---
+- name: Reload web server
+  ansible.builtin.debug:
+    msg: >-
+      Certificate issued for {{ certbot_domains | join(', ') }}.
+      Wire the renewal hook (certbot_renew_hook) to your web server reload.

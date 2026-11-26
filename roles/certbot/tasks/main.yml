@@ -1,0 +1,24 @@
+---
+- name: Install certbot
+  ansible.builtin.apt:
+    name: certbot
+    state: present
+
+- name: Ensure the certbot renewal timer is enabled
+  ansible.builtin.systemd:
+    name: certbot.timer
+    state: started
+    enabled: true
+
+- name: Issue the initial certificate
+  ansible.builtin.command:
+    cmd: >-
+      certbot certonly --standalone --non-interactive --agree-tos
+      --email {{ certbot_email }}
+      {{ '--staging' if certbot_staging else '' }}
+      {{ certbot_domains | map('regex_replace', '^(.*)$', '-d \1') | join(' ') }}
+    creates: "/etc/letsencrypt/live/{{ certbot_domains[0] }}/fullchain.pem"
+  when:
+    - certbot_enabled
+    - certbot_domains | length > 0
+  notify: Reload web server

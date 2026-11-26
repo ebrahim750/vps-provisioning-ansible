@@ -1,0 +1,4 @@
+*.retry
+.venv/
+.vault_pass
+*.log

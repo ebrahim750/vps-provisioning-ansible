@@ -1,0 +1,12 @@
+---
+galaxy_info:
+  role_name: certbot
+  author: Ebrahim Abdulrahim
+  description: Let's Encrypt certificates with automatic renewal.
+  license: MIT
+  min_ansible_version: "2.16"
+  platforms:
+    - name: Ubuntu
+      versions: [jammy, noble]
+dependencies:
+  - role: common
