@@ -24,8 +24,8 @@ allowed_tcp_ports:
 docker_tcp_bind: ""
 
 # --- firewall behaviour -------------------------------------------------------
-ufw_log_level: low
-ufw_rate_limit_ssh: true
+firewall_ufw_log_level: low
+firewall_ufw_rate_limit_ssh: true
 
 # --- docker -------------------------------------------------------------------
 docker_compose_version: "v2.40.3"

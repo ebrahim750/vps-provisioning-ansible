@@ -1,11 +1,13 @@
 ---
-deploy_user: deploy
-deploy_user_shell: /bin/bash
-deploy_user_sudo_nopasswd: true
+# Role-scoped knobs. ansible-lint requires role defaults to carry the role name
+# as a prefix. deploy_user and deploy_ssh_keys are inventory variables defined in
+# group_vars/vps.yml, so they are not redeclared here.
+hardening_deploy_user_shell: /bin/bash
+hardening_deploy_user_sudo_nopasswd: true
 
-fail2ban_maxretry: 5
-fail2ban_bantime: 1h
-fail2ban_findtime: 10m
+hardening_fail2ban_maxretry: 5
+hardening_fail2ban_bantime: 1h
+hardening_fail2ban_findtime: 10m
 
 hardening_sysctl:
   # Kernel information leaks

@@ -16,7 +16,7 @@
 
 - name: Allow SSH, rate limited to slow down credential stuffing
   community.general.ufw:
-    rule: "{{ 'limit' if ufw_rate_limit_ssh else 'allow' }}"
+    rule: "{{ 'limit' if firewall_ufw_rate_limit_ssh else 'allow' }}"
     port: "{{ ssh_port }}"
     proto: tcp
     comment: SSH
@@ -32,4 +32,4 @@
 - name: Enable the firewall
   community.general.ufw:
     state: enabled
-    logging: "{{ ufw_log_level }}"
+    logging: "{{ firewall_ufw_log_level }}"

@@ -1,3 +1,4 @@
 ---
-ufw_log_level: low
-ufw_rate_limit_ssh: true
+# Prefixed with the role name, as ansible-lint requires for role defaults.
+firewall_ufw_log_level: low
+firewall_ufw_rate_limit_ssh: true
